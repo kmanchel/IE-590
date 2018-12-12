@@ -1,0 +1,26 @@
+p=2425967623052370772757633156976982469681
+q=1451730470513778492236629598992166035067
+n=p*q
+print("n = p * q = " + str(n) + "\n")
+phi=(p-1)*(q-1)
+print("phi(n): " + str(phi) + "\n")
+e = 7
+def egcd(a, b):
+    if a == 0:
+        return b, 0, 1
+    else:
+        g, y, x = egcd(b % a, a)
+        return g, x - (b // a) * y, y
+
+
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+    
+d = modinv(e, phi)
+
+print("\nPublic Keys: (e=" + str(e) + ", n=" + str(n) + ").\n")
+print("Private Keys: (d=" + str(d) + ", n=" + str(n) + ").\n")
